@@ -30,19 +30,33 @@ struct EventFormView: View {
     func updateEventArray(updatedEvent: Event) {
         for event in events {
             if event.date.startOfDay == updatedEvent.date.startOfDay {
-                event.date = updatedEvent.date
-                event.flowType = updatedEvent.flowType
-                event.clottingType = updatedEvent.clottingType
-                event.spottingType = updatedEvent.spottingType
-                event.energyType = updatedEvent.energyType
-                event.feelingType = updatedEvent.feelingType
-                event.painType = updatedEvent.painType
-                if (event.flowType != FlowType.none) || (event.clottingType != ClottingType.none) {
+                
+                if updatedEvent.flowType != FlowType.none {
+                    event.flowType = updatedEvent.flowType
+                }
+                if updatedEvent.clottingType != ClottingType.none {
+                    event.clottingType = updatedEvent.clottingType
+                }
+                if updatedEvent.energyType != EnergyType.none {
+                    event.energyType = updatedEvent.energyType
+                }
+                if updatedEvent.painType != PainType.none {
+                    event.painType = updatedEvent.painType
+                }
+                if !updatedEvent.spottingType.isEmpty {
+                    event.spottingType = updatedEvent.spottingType
+                }
+                if !updatedEvent.feelingType.isEmpty {
+                    event.feelingType = updatedEvent.feelingType
+                }
+                
+                if ((event.flowType != FlowType.none) || (updatedEvent.flowType != FlowType.none)) {
                     event.eventType = EventType.menstrual
                 }
                 else {
                     event.eventType = EventType.informative
                 }
+                break
             }
         }
     }
